@@ -2,205 +2,119 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Vérification des invités</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff0f6;
-            text-align: center;
-            padding: 30px;
-        }
-        h1 {
-            color: #c2185b;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            width: 300px;
-        }
-        #resultat {
-            font-size: 20px;
-            margin-top: 20px;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Invitation Mariage Rosa & François</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fffaf0;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 30px;
+      color: #c2185b;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+    .container img {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .search-section {
+      margin: 40px 0;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .animation img {
+      position: fixed;
+      width: 60px;
+      opacity: 0.6;
+      animation: float 10s infinite;
+      z-index: -1;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-10vh) rotate(360deg); }
+    }
+    .socials {
+      margin-top: 40px;
+    }
+    .socials a {
+      margin: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #007BFF;
+    }
+  </style>
 </head>
 <body>
-    <h1>Bienvenue à notre mariage</h1>
+  <h1>Bienvenue au mariage de Rosa & François</h1>
+  <div class="container">
+    <img src="invitation.jpg" alt="Invitation Mariage">
+  </div>
+  <div class="search-section">
     <p>Recherchez votre nom pour vérifier votre invitation :</p>
-    <input type="text" id="nomInvite" placeholder="Entrez votre nom ici" oninput="verifierNom()">
-    <div id="resultat"></div>
+    <input type="text" id="nameInput" placeholder="Entrez votre nom ici">
+    <button onclick="verifierNom()">VÉRIFIER</button>
+    <div class="result" id="resultMessage"></div>
+  </div>
+  <div class="animation">
+    <img src="couple-sticker.png" style="left:10%; animation-delay:0s;">
+    <img src="couple-sticker.png" style="left:30%; animation-delay:2s;">
+    <img src="couple-sticker.png" style="left:50%; animation-delay:4s;">
+    <img src="couple-sticker.png" style="left:70%; animation-delay:6s;">
+    <img src="couple-sticker.png" style="left:90%; animation-delay:8s;">
+  </div>
+  <div class="socials">
+    <p>Confirmez votre présence :</p>
+    <a href="https://wa.me/243851882645" target="_blank">WhatsApp</a>
+    <a href="https://m.me/username" target="_blank">Messenger</a>
+    <a href="https://instagram.com/username" target="_blank">Instagram</a>
+  </div>
 
-    <script>
+  <script>
     const invites = {
-  "MOUSHE": {table: 1, place: "A1"},
-  "CLAUDINE": {table: 1, place: "A2"},
-  "INVITE3": {table: 1, place: "A3"},
-  "INVITE4": {table: 1, place: "A4"},
-  "INVITE5": {table: 1, place: "A5"},
-  "INVITE6": {table: 1, place: "A6"},
-  "INVITE7": {table: 1, place: "A7"},
-  "INVITE8": {table: 1, place: "A8"},
-  "INVITE9": {table: 2, place: "B1"},
-  "INVITE10": {table: 2, place: "B2"},
-  "INVITE11": {table: 2, place: "B3"},
-  "INVITE12": {table: 2, place: "B4"},
-  "INVITE13": {table: 2, place: "B5"},
-  "INVITE14": {table: 2, place: "B6"},
-  "INVITE15": {table: 2, place: "B7"},
-  "INVITE16": {table: 2, place: "B8"},
-  "INVITE17": {table: 3, place: "C1"},
-  "INVITE18": {table: 3, place: "C2"},
-  "INVITE19": {table: 3, place: "C3"},
-  "INVITE20": {table: 3, place: "C4"},
-  "INVITE21": {table: 3, place: "C5"},
-  "INVITE22": {table: 3, place: "C6"},
-  "INVITE23": {table: 3, place: "C7"},
-  "INVITE24": {table: 3, place: "C8"},
-  "INVITE25": {table: 4, place: "D1"},
-  "INVITE26": {table: 4, place: "D2"},
-  "INVITE27": {table: 4, place: "D3"},
-  "INVITE28": {table: 4, place: "D4"},
-  "INVITE29": {table: 4, place: "D5"},
-  "INVITE30": {table: 4, place: "D6"},
-  "INVITE31": {table: 4, place: "D7"},
-  "INVITE32": {table: 4, place: "D8"},
-  "INVITE33": {table: 5, place: "E1"},
-  "INVITE34": {table: 5, place: "E2"},
-  "INVITE35": {table: 5, place: "E3"},
-  "INVITE36": {table: 5, place: "E4"},
-  "INVITE37": {table: 5, place: "E5"},
-  "INVITE38": {table: 5, place: "E6"},
-  "INVITE39": {table: 5, place: "E7"},
-  "INVITE40": {table: 5, place: "E8"},
-  "INVITE41": {table: 6, place: "F1"},
-  "INVITE42": {table: 6, place: "F2"},
-  "INVITE43": {table: 6, place: "F3"},
-  "INVITE44": {table: 6, place: "F4"},
-  "INVITE45": {table: 6, place: "F5"},
-  "INVITE46": {table: 6, place: "F6"},
-  "INVITE47": {table: 6, place: "F7"},
-  "INVITE48": {table: 6, place: "F8"},
-  "INVITE49": {table: 7, place: "G1"},
-  "INVITE50": {table: 7, place: "G2"},
-  "INVITE51": {table: 7, place: "G3"},
-  "INVITE52": {table: 7, place: "G4"},
-  "INVITE53": {table: 7, place: "G5"},
-  "INVITE54": {table: 7, place: "G6"},
-  "INVITE55": {table: 7, place: "G7"},
-  "INVITE56": {table: 7, place: "G8"},
-  "INVITE57": {table: 8, place: "H1"},
-  "INVITE58": {table: 8, place: "H2"},
-  "INVITE59": {table: 8, place: "H3"},
-  "INVITE60": {table: 8, place: "H4"},
-  "INVITE61": {table: 8, place: "H5"},
-  "INVITE62": {table: 8, place: "H6"},
-  "INVITE63": {table: 8, place: "H7"},
-  "INVITE64": {table: 8, place: "H8"},
-  "INVITE65": {table: 9, place: "I1"},
-  "INVITE66": {table: 9, place: "I2"},
-  "INVITE67": {table: 9, place: "I3"},
-  "INVITE68": {table: 9, place: "I4"},
-  "INVITE69": {table: 9, place: "I5"},
-  "INVITE70": {table: 9, place: "I6"},
-  "INVITE71": {table: 9, place: "I7"},
-  "INVITE72": {table: 9, place: "I8"},
-  "INVITE73": {table: 10, place: "J1"},
-  "INVITE74": {table: 10, place: "J2"},
-  "INVITE75": {table: 10, place: "J3"},
-  "INVITE76": {table: 10, place: "J4"},
-  "INVITE77": {table: 10, place: "J5"},
-  "INVITE78": {table: 10, place: "J6"},
-  "INVITE79": {table: 10, place: "J7"},
-  "INVITE80": {table: 10, place: "J8"},
-  "INVITE81": {table: 11, place: "K1"},
-  "INVITE82": {table: 11, place: "K2"},
-  "INVITE83": {table: 11, place: "K3"},
-  "INVITE84": {table: 11, place: "K4"},
-  "INVITE85": {table: 11, place: "K5"},
-  "INVITE86": {table: 11, place: "K6"},
-  "INVITE87": {table: 11, place: "K7"},
-  "INVITE88": {table: 11, place: "K8"},
-  "INVITE89": {table: 12, place: "L1"},
-  "INVITE90": {table: 12, place: "L2"},
-  "INVITE91": {table: 12, place: "L3"},
-  "INVITE92": {table: 12, place: "L4"},
-  "INVITE93": {table: 12, place: "L5"},
-  "INVITE94": {table: 12, place: "L6"},
-  "INVITE95": {table: 12, place: "L7"},
-  "INVITE96": {table: 12, place: "L8"},
-  "INVITE97": {table: 13, place: "M1"},
-  "INVITE98": {table: 13, place: "M2"},
-  "INVITE99": {table: 13, place: "M3"},
-  "INVITE100": {table: 13, place: "M4"},
-  "INVITE101": {table: 13, place: "M5"},
-  "INVITE102": {table: 13, place: "M6"},
-  "INVITE103": {table: 13, place: "M7"},
-  "INVITE104": {table: 13, place: "M8"},
-  "INVITE105": {table: 14, place: "N1"},
-  "INVITE106": {table: 14, place: "N2"},
-  "INVITE107": {table: 14, place: "N3"},
-  "INVITE108": {table: 14, place: "N4"},
-  "INVITE109": {table: 14, place: "N5"},
-  "INVITE110": {table: 14, place: "N6"},
-  "INVITE111": {table: 14, place: "N7"},
-  "INVITE112": {table: 14, place: "N8"},
-  "INVITE113": {table: 15, place: "O1"},
-  "INVITE114": {table: 15, place: "O2"},
-  "INVITE115": {table: 15, place: "O3"},
-  "INVITE116": {table: 15, place: "O4"},
-  "INVITE117": {table: 15, place: "O5"},
-  "INVITE118": {table: 15, place: "O6"},
-  "INVITE119": {table: 15, place: "O7"},
-  "INVITE120": {table: 15, place: "O8"},
-  "INVITE121": {table: 16, place: "P1"},
-  "INVITE122": {table: 16, place: "P2"},
-  "INVITE123": {table: 16, place: "P3"},
-  "INVITE124": {table: 16, place: "P4"},
-  "INVITE125": {table: 16, place: "P5"},
-  "INVITE126": {table: 16, place: "P6"},
-  "INVITE127": {table: 16, place: "P7"},
-  "INVITE128": {table: 16, place: "P8"},
-  "INVITE129": {table: 17, place: "Q1"},
-  "INVITE130": {table: 17, place: "Q2"},
-  "INVITE131": {table: 17, place: "Q3"},
-  "INVITE132": {table: 17, place: "Q4"},
-  "INVITE133": {table: 17, place: "Q5"},
-  "INVITE134": {table: 17, place: "Q6"},
-  "INVITE135": {table: 17, place: "Q7"},
-  "INVITE136": {table: 17, place: "Q8"},
-  "INVITE137": {table: 18, place: "R1"},
-  "INVITE138": {table: 18, place: "R2"},
-  "INVITE139": {table: 18, place: "R3"},
-  "INVITE140": {table: 18, place: "R4"},
-  "INVITE141": {table: 18, place: "R5"},
-  "INVITE142": {table: 18, place: "R6"},
-  "INVITE143": {table: 18, place: "R7"},
-  "INVITE144": {table: 18, place: "R8"},
-  "INVITE145": {table: 19, place: "S1"},
-  "INVITE146": {table: 19, place: "S2"},
-  "INVITE147": {table: 19, place: "S3"},
-  "INVITE148": {table: 19, place: "S4"},
-  "INVITE149": {table: 19, place: "S5"},
-  "INVITE150": {table: 19, place: "S6"},
-};
+      "alex kabila": "Table 1, Place A1",
+      "carine lungu": "Table 1, Place A2",
+      "noah kasongo": "Table 1, Place A3",
+      "valentin kapongo": "Table 2, Place A1"
+    };
 
-    function verifierInvite() {
-      const nom = document.getElementById("nomInvite").value.trim().toUpperCase();
-      const res = document.getElementById("resultat");
-      if(invites[nom]) {
-        const table = invites[nom].table;
-        const place = invites[nom].place;
-        res.textContent = `✅ Bonjour $INVITE150, votre place est à la Table $19, Place $7`;
-        res.style.color = "green";
+    function verifierNom() {
+      const input = document.getElementById('nameInput').value.trim().toLowerCase();
+      const result = document.getElementById('resultMessage');
+      if (invites[input]) {
+        result.textContent = "MERCI ET HONORÉ DE VOTRE PRÉSENCE — " + invites[input];
+        result.style.color = "green";
       } else {
-        res.textContent = "❌ Nom introuvable. Vérifiez l’orthographe.";
-        res.style.color = "red";
+        result.textContent = "DÉSOLÉ, VOUS N'ÊTES PAS PARMI LES INVITÉS";
+        result.style.color = "red";
       }
     }
   </script>
-
 </body>
 </html>
