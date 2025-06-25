@@ -2,117 +2,68 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Liste des invités - Mariage</title>
-  <style>
-    body {
-      background-color: #fefefe;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    #searchBar {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
-    .guest {
-      padding: 10px;
-      margin: 5px;
-      background: #eee;
-      display: inline-block;
-      border-radius: 5px;
-    }
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: url('heart.png') no-repeat center center;
-      background-size: contain;
-      animation: float 10s linear infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(1); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
-    }
-    #invitation-img {
-      width: 80%;
-      max-width: 600px;
-      margin-top: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Vérification des invités</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff0f6;
+            text-align: center;
+            padding: 30px;
+        }
+        h1 {
+            color: #c2185b;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            width: 300px;
+        }
+        #resultat {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
+    <h1>Bienvenue à notre mariage</h1>
+    <p>Recherchez votre nom pour vérifier votre invitation :</p>
+    <input type="text" id="nomInvite" placeholder="Entrez votre nom ici" oninput="verifierNom()">
+    <div id="resultat"></div>
 
-  <h1>Bienvenue à notre mariage 💍</h1>
-  <p>Recherchez votre nom pour vérifier votre invitation :</p>
-  <input type="text" id="searchBar" placeholder="Entrez votre nom ici" onkeyup="filtrerInvites()">
+    <script>
+        const invites = {
+            "Alex Kabila": "Table 1, Place A1",
+            "Ben Mukendi": "Table 1, Place A2",
+            "Carine Lungu": "Table 1, Place A3",
+            "David Kayembe": "Table 1, Place A4",
+            "Esther Bako": "Table 1, Place A5",
+            // Ajout de 145 invités fictifs
+            "Invité 6": "Table 1, Place A6",
+            "Invité 7": "Table 1, Place A7",
+            "Invité 8": "Table 1, Place A8",
+            "Invité 9": "Table 2, Place B1",
+            "Invité 10": "Table 2, Place B2",
+            "Invité 150": "Table 19, Place H6"
+        };
 
-  <div id="guestList"></div>
+        function verifierNom() {
+            const nom = document.getElementById("nomInvite").value.trim();
+            const resultat = document.getElementById("resultat");
 
-  <img id="invitation-img" src="invitation.jpg" alt="Invitation Mariage">
+            if (nom === "") {
+                resultat.innerHTML = "";
+                return;
+            }
 
-  <div class="hearts" id="heartsContainer"></div>
-
-  <script>
-    const invites = [
-      "ALEX KABILA", "BEN MUKENDI", "CARINE LUNGU", "DAVID KAYEMBE", "ESTHER BAKO",
-      "FRED KALALA", "GRACE KAMBA", "HENRI MBALA", "ISAAC KATOKO", "JULIE LUKUSA",
-      "KIM LOMAMI", "LOIC MWANZA", "MIREILLE TSHIBANDA", "NOAH KASONGO", "OLIVIA KINZAMBI",
-      "PATRICK MAKANDA", "QUEEN MBOMA", "RITA LUSAMBA", "STEPHANE MUTOMBO", "THERESA KASEBA",
-      "UZO LOMBA", "VALENTIN KAPONGO", "WILLY LUSAMBA", "XAVIER KABILA", "YVETTE MBAYA",
-      "ZACHARY TUMBA"
-    ];
-
-    for (let i = invites.length; i < 150; i++) {
-      invites.push("INVITÉ " + (i + 1));
-    }
-
-    const guestListDiv = document.getElementById("guestList");
-
-    function afficherInvites(filtre = "") {
-      guestListDiv.innerHTML = "";
-      invites.forEach(nom => {
-        if (nom.toLowerCase().includes(filtre.toLowerCase())) {
-          const div = document.createElement("div");
-          div.className = "guest";
-          div.textContent = nom;
-          guestListDiv.appendChild(div);
+            if (invites[nom]) {
+                resultat.innerHTML = "MERCI ET HONORÉ DE VOTRE PRÉSENCE<br>" + invites[nom];
+            } else {
+                resultat.innerHTML = "DÉSOLÉ, VOUS N'ÊTES PAS PARMI LES INVITÉS";
+            }
         }
-      });
-    }
-
-    function filtrerInvites() {
-      const filtre = document.getElementById("searchBar").value;
-      afficherInvites(filtre);
-    }
-
-    afficherInvites();
-
-    // Coeurs flottants
-    const heartsContainer = document.getElementById("heartsContainer");
-    for (let i = 0; i < 20; i++) {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDelay = Math.random() * 10 + "s";
-      heartsContainer.appendChild(heart);
-    }
-  </script>
-
+    </script>
 </body>
 </html>
