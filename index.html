@@ -1,25 +1,164 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Bienvenue au mariage de Rosa & François</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Mariage de Rosa & François</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #c2185b;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    img {
+      width: 60%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    p#result {
+      font-size: 1.1em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/32px-Love_Heart_SVG.svg.png');
+      background-size: contain;
+      animation: float 6s infinite;
+      opacity: 0.6;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100vh); }
+    }
+  </style>
 </head>
 <body>
-    <div class="invitation">
-        <img src="m.jpg" alt="Invitation au mariage" class="invitation-img">
-        <audio autoplay loop>
-            <source src="audio.mp3" type="audio/mp3">
-        </audio>
-    </div>
-    <div class="coeurs"></div>
-    <h1>Bienvenue au mariage de Rosa & François</h1>
-    <input type="text" id="searchInput" placeholder="Entrez votre nom...">
-    <button onclick="verifierInvite()">Vérifier</button>
-    <p id="message"></p>
 
-    <script src="invites.js"></script>
-    <script src="script.js"></script>
+  <h1>Bienvenue au mariage de Rosa & François</h1>
+  <img src="m.jpg" alt="Invitation Mariage" />
+  <br />
+  <input type="text" id="nameInput" placeholder="Entrez votre nom ici" />
+  <button onclick="checkGuest()">Vérifier</button>
+  <p id="result"></p>
+
+  <audio autoplay loop>
+    <source src="audio.mp3" type="audio/mp3" />
+  </audio>
+
+  <script>
+    const guests = {
+      "Moushe": { table: 1, place: "A1" },
+      "Claudine": { table: 1, place: "A2" },
+      "Carine Janot": { table: 1, place: "A3" },
+      "Regina": { table: 1, place: "A4" },
+      "Frisianne": { table: 1, place: "A5" },
+      "Fanny": { table: 1, place: "A6" },
+      "Maman Dylan": { table: 1, place: "A7" },
+      "Papa Lema": { table: 1, place: "A8" },
+
+      "Maman Lema": { table: 2, place: "A1" },
+      "Myriame Lema": { table: 2, place: "A2" },
+      "Gloria kaba": { table: 2, place: "A3" },
+      "Femme Gloria": { table: 2, place: "A4" },
+      "José": { table: 2, place: "A5" },
+      "Bill": { table: 2, place: "A6" },
+      "Ngoy": { table: 2, place: "A7" },
+      "Maman Sisi": { table: 2, place: "A8" },
+
+      "Papa Mao": { table: 3, place: "A1" },
+      "Maman Myreille": { table: 3, place: "A2" },
+      "Tatiana": { table: 3, place: "A3" },
+      "Marie Tatiana": { table: 3, place: "A4" },
+      "Caty": { table: 3, place: "A5" },
+      "Marie de Caty": { table: 3, place: "A6" },
+      "Blanchard": { table: 3, place: "A7" },
+      "Solange": { table: 3, place: "A8" },
+
+      "Romario": { table: 4, place: "A1" },
+      "Femme Romario": { table: 4, place: "A2" },
+      "Gracia": { table: 4, place: "A3" },
+      "Marie de Gracia": { table: 4, place: "A4" },
+      "Patricia": { table: 4, place: "A5" },
+      "Dieudonne": { table: 4, place: "A6" },
+      "Maman Thethe": { table: 4, place: "A7" },
+      "Maman Lea": { table: 4, place: "A8" },
+
+      "Maman Fernando": { table: 5, place: "A1" },
+      "Judite": { table: 5, place: "A2" },
+      "Marie de Judite": { table: 5, place: "A3" },
+      "Moseka": { table: 5, place: "A4" },
+      "Marie Janne": { table: 5, place: "A5" },
+      "Lydia": { table: 5, place: "A6" },
+      "Nancy": { table: 5, place: "A7" },
+      "Tchao": { table: 5, place: "A8" },
+
+      "Jolie": { table: 6, place: "A1" },
+      "Chico Dikima": { table: 6, place: "A2" },
+      "Kabala": { table: 6, place: "A3" },
+      "Branny Dikima": { table: 6, place: "A4" },
+      "Bébé Dikima": { table: 6, place: "A5" },
+      "Christian Dikima": { table: 6, place: "A6" },
+      "Felly Dikima": { table: 6, place: "A7" },
+      "Christine Dikima": { table: 6, place: "A8" },
+
+      // ... Vous pouvez continuer à ajouter les 150 noms ici
+
+      "INVITE 1": { table: 7, place: "A1" },
+      "INVITE 2": { table: 7, place: "A2" },
+      "INVITE 3": { table: 7, place: "A3" },
+      "INVITE 4": { table: 7, place: "A4" },
+      "INVITE 5": { table: 7, place: "A5" },
+      "INVITE 6": { table: 7, place: "A6" },
+      "INVITE 7": { table: 7, place: "A7" },
+      "INVITE 8": { table: 7, place: "A8" }
+    };
+
+    function checkGuest() {
+      const name = document.getElementById("nameInput").value.trim();
+      const guest = guests[name];
+      const result = document.getElementById("result");
+      if (guest) {
+        result.textContent = `Merci ${name}, nous sommes honorés de votre présence. Table ${guest.table}, Place ${guest.place}.`;
+        result.style.color = "green";
+      } else {
+        result.textContent = "DÉSOLÉ, VOUS N'ÊTES PAS SUR LA LISTE DES INVITÉS.";
+        result.style.color = "red";
+      }
+    }
+
+    // Générer quelques cœurs flottants
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDuration = `${4 + Math.random() * 6}s`;
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+    }
+  </script>
 </body>
 </html>
