@@ -3,100 +3,120 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mariage de Rosa et François</title>
+    <title>Invitation au Mariage</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fff0f5;
             margin: 0;
-            padding: 0;
-            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff0f5;
+            overflow: hidden;
             position: relative;
-            overflow-x: hidden;
         }
         h1 {
+            text-align: center;
+            color: #8b0000;
             margin-top: 20px;
-            color: #d63384;
         }
-        .invitation {
-            width: 90%;
-            max-width: 600px;
-            margin: 20px auto;
-            border: 3px solid #d63384;
+        .invitation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px;
+        }
+        .invitation-container img {
+            max-width: 90%;
+            height: auto;
             border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .search-container {
-            margin: 30px auto;
+        .search-section {
+            text-align: center;
+            margin: 30px;
         }
         input[type="text"] {
             padding: 10px;
-            width: 250px;
-            border: 1px solid #ccc;
+            font-size: 18px;
             border-radius: 8px;
-            font-size: 16px;
+            border: 1px solid #ccc;
+            width: 60%;
+            max-width: 400px;
         }
         button {
             padding: 10px 20px;
-            background-color: #d63384;
+            font-size: 18px;
+            margin-left: 10px;
+            background-color: #ff69b4;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
         }
-        .result {
+        .result-message {
+            text-align: center;
             margin-top: 20px;
-            font-size: 18px;
-            color: #333;
+            font-size: 20px;
+            font-weight: bold;
         }
         .heart {
             position: absolute;
             width: 30px;
-            animation: float 6s ease-in-out infinite;
+            height: 30px;
+            animation: float 10s infinite;
+            opacity: 0.7;
         }
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
     <h1>Bienvenue au Mariage de Rosa et François</h1>
-    <img src="invitation.jpg" alt="Invitation Mariage" class="invitation">
-
-    <div class="search-container">
-        <input type="text" id="guestName" placeholder="Entrez votre nom en MAJUSCULE">
-        <button onclick="checkGuest()">VÉRIFIER</button>
-        <div class="result" id="resultMessage"></div>
+    <div class="invitation-container">
+        <img src="invitation.jpg" alt="Invitation au mariage">
+    </div>
+    <div class="search-section">
+        <input type="text" id="guestInput" placeholder="Entrez votre nom EN MAJUSCULE">
+        <button onclick="checkGuest()">Vérifier</button>
+        <div class="result-message" id="result"></div>
     </div>
 
     <script>
-        const guests = {
-            "MOUSHE": "Table 7, Place A1",
-            "CLAUDINE": "Table 7, Place A2",
-            "CARINE": "Table 7, Place A3"
-        };
+        const guestList = [
+            "MOUCHE", "CLAUDINE", "CARINE JANOT", "REGINA", "FRISIANNE", "FANNY", "MAMAN DYLAN",
+            "PAPA LEMA", "MAMAN LEMA", "MYRIAME LEMA", "GLORIA KABA", "FEMME GLORIA",
+            "JOSÉ", "BILL", "NGOY", "MAMAN SISI", "PAPA MAO", "MAMAN MYREILLE", "TATIANA", "MARIE TATIANA", "CATY", "MARIE DE CATY",
+            "BLANCHARD", "SOLANGE", "ROMARIO", "FEMME ROMARIO", "GRACIA", "MARIE DE GRACIA", "PATRICIA", "DIEUDONNE",
+            "MAMAN THETHE", "MAMAN LEA", "MAMAN FERNANDO", "JUDITE", "MARIE DE JUDITE", "MOSEKA", "MARIE JANNE",
+            "LYDIA", "NANCY", "TCHAO", "JOLIE",
+            "CHICO DIKIMA", "BRANNY DIKIMA", "BÉBÉ DIKIMA", "CHRISTIAN DIKIMA", "FELLY DIKIMA", "CHRISTINE DIKIMA", "KEMS DIKIMA", "SHEILA DIKIMA",
+            "ALINE DIKIMA", "BENI DIKIMA", "LOUIS DIKIMA", "ERNEST DIKIMA", "BENJAMIN DIKIMA", "JEREMY DIKIMA", "JONATHAN DIKIMA", "KEONA DIKIMA", "CHARLY DIKIMA",
+            "NELLY DETANGER", "MÉLANIE DETANGER", "SOLAIRE DETANGER", "INÈS DETANGER", "MARIE DE INES", "JOËLLE", "LUCAS", "MICHEL", "KARINE",
+            "DENIS DIKIMA", "MAMAN ADEL", "DINA", "DIDIER DINA", "MAMAN IYDIE", "ÉVANGÉLISTE SCHILO", "RUDDY", "AMANDINE",
+            "OLIVIER", "ALENGILA", "BOBETTE", "RODRIC MBELE", "FEMME RODRIC", "ALAIN MALEGA", "MARIA MALEGA", "JEAN CLAUDE", "FEMME JEAN CLAUDE",
+            "THACIEN", "ZOUBER", "HAFIZ", "HELMI", "ARMEL", "JONATHAN", "RIGOBERT"
+        ];
 
         function checkGuest() {
-            const name = document.getElementById("guestName").value.trim().toUpperCase();
-            const message = document.getElementById("resultMessage");
-
-            if (guests[name]) {
-                message.innerHTML = "MERCI ET HONORÉ DE VOTRE PRÉSENCE<br>" + guests[name];
-                message.style.color = "green";
+            const input = document.getElementById("guestInput").value.trim().toUpperCase();
+            const result = document.getElementById("result");
+            if (guestList.includes(input)) {
+                result.innerHTML = "MERCI ET HONORÉ DE VOTRE PRÉSENCE";
+                result.style.color = "green";
             } else {
-                message.innerHTML = "DÉSOLÉ, VOUS N'ÊTES PAS PARMI LES INVITÉS";
-                message.style.color = "red";
+                result.innerHTML = "DÉSOLÉ, VOUS N'ÊTES PAS PARMI LES INVITÉS";
+                result.style.color = "red";
             }
         }
 
-        // Add floating hearts
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('img');
-            heart.src = 'heart.png';
-            heart.className = 'heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = Math.random() * 100 + 'vh';
-            heart.style.animationDelay = (Math.random() * 10) + 's';
+        // Floating heart stickers
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement("img");
+            heart.src = "heart.png";
+            heart.className = "heart";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (5 + Math.random() * 5) + "s";
             document.body.appendChild(heart);
         }
     </script>
