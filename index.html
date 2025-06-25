@@ -1,98 +1,104 @@
 
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
-<meta charset="utf-8"/>
-<title>Liste des Invités - Mariage Rosa &amp; François</title>
-<style>
+    <meta charset="UTF-8">
+    <title>Mariage de Rosa et François</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 30px;
-            background-color: #fff8f2;
-            color: #333;
+            background-color: #fff0f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            overflow-x: hidden;
         }
         h1 {
-            text-align: center;
-            color: #a0522d;
+            margin-top: 20px;
+            color: #d63384;
         }
-        .table-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        .invitation {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 3px solid #d63384;
+            border-radius: 15px;
         }
-        .table {
-            width: 30%;
-            background-color: #fff;
-            border: 1px solid #e0c9a6;
+        .search-container {
+            margin: 30px auto;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            font-size: 16px;
         }
-        .table h2 {
-            text-align: center;
-            color: #8b4513;
+        button {
+            padding: 10px 20px;
+            background-color: #d63384;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
         }
-        ul {
-            list-style-type: none;
-            padding-left: 10px;
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-<h1>Liste des Invités - Mariage de Rosa &amp; François</h1>
-<div class="table-container">
-<div class="table"><h2>Table 7</h2><ul><li>Mouche</li><li>Claudine</li><li>Carine</li><li>Janot</li><li>Regina</li><li>Frisianne</li><li>Fanny</li><li>Maman Dylan</li></ul></div><div class="table"><h2>Table 8</h2><ul><li>Papa Lema</li><li>Maman Lema</li><li>Myriame Lema</li><li>Gloria kaba</li><li>Femme Gloria</li><li>????????????????</li><li>????????????????</li><li>????????????????</li></ul></div><div class="table"><h2>Table 9</h2><ul><li>José Bill Ngoy</li><li>Mama Sisi Ngoy</li><li>Papa Mao</li><li>Maman Myreille</li><li>Tatiana</li><li>Marie Tatiana</li><li>Caty</li><li>Marie de Caty</li></ul></div><div class="table"><h2>Table 10</h2><ul><li>Blanchard</li><li>Solange</li><li>Romario</li><li>Femme Romario</li><li>Gracia</li><li>Marie de Gracia</li><li>Patricia</li><li>Dieudonne</li></ul></div><div class="table"><h2>Table 11</h2><ul><li>Maman Thethe</li><li>Maman Lea</li><li>Maman Fernando</li><li>Judite</li><li>Marie de Judite</li><li>Moseka</li><li>Marie Janne</li></ul></div><div class="table"><h2>Table 12</h2><ul><li>Lydia</li><li>Nancy Tchao</li><li>Jolie</li></ul></div><div class="table"><h2>Table 1</h2><ul><li>Chico Dikima Kabala</li><li>Branny Dikima Kabala</li><li>Bébé Dikima</li><li>Christian Dikima</li><li>Felly Dikima</li><li>Christine Dikima</li><li>Kems Dikima</li><li>Sheila Dikima</li></ul></div><div class="table"><h2>Table 2</h2><ul><li>Aline Dikima</li><li>Beni Dikima</li><li>Louis Dikima</li><li>Ernest Dikima</li><li>Benjamin Dikima</li><li>Jeremy Dikima</li><li>Jonathan Dikima</li><li>Keona Dikima</li><li>Charly Dikima</li></ul></div><div class="table"><h2>Table 3</h2><ul><li>Nelly Detanger</li><li>Mélanie Detanger</li><li>Solaire Detanger</li><li>Inès Detanger</li><li>Marie de Ines</li><li>Joëlle Lucas</li><li>Michel Lucas</li><li>Karine</li></ul></div><div class="table"><h2>Table 4</h2><ul><li>Denis Dikima</li><li>Maman Adel</li><li>Dina</li><li>Didier Dina</li><li>Maman Iydie</li><li>Évangéliste Schilo</li><li>Ruddy</li><li>Amandine</li></ul></div><div class="table"><h2>Table 5</h2><ul><li>Olivier Alengila</li><li>Bobette Alengila</li><li>Rodric Mbele</li><li>Femme Rodric</li><li>Alain Malega</li><li>Maria Malega</li><li>Jean Claude</li><li>Femme Jean Claude</li></ul></div><div class="table"><h2>Table 6</h2><ul><li>Thacien</li><li>Zouber</li><li>Hafiz</li><li>Helmi</li><li>Armel</li><li>Jonathan</li><li>Rigobert</li></ul></div>
-</div>
-<section id="guest-list">
-<h2>Liste des invités</h2>
-<div class="tables">
-<h3>Table 1</h3><ul>
-<li>Chico Dikima Kabala</li><li>Branny Dikima Kabala</li><li>Bébé Dikima</li><li>Christian Dikima</li>
-<li>Felly Dikima</li><li>Christine Dikima</li><li>Kems Dikima</li><li>Sheila Dikima</li>
-</ul>
-<h3>Table 2</h3><ul>
-<li>Aline Dikima</li><li>Beni Dikima</li><li>Louis Dikima</li><li>Ernest Dikima</li><li>Benjamin Dikima</li>
-<li>Jeremy Dikima</li><li>Jonathan Dikima</li><li>Keona Dikima</li><li>Charly Dikima</li>
-</ul>
-<h3>Table 3</h3><ul>
-<li>Nelly Detanger</li><li>Mélanie Detanger</li><li>Solaire Detanger</li><li>Inès Detanger</li>
-<li>Marie de Ines</li><li>Joëlle Lucas</li><li>Michel Lucas</li><li>Karine</li>
-</ul>
-<h3>Table 4</h3><ul>
-<li>Denis Dikima</li><li>Maman Adel</li><li>Dina</li><li>Didier Dina</li><li>Maman Iydie</li>
-<li>Évangéliste Schilo</li><li>Ruddy</li><li>Amandine</li>
-</ul>
-<h3>Table 5</h3><ul>
-<li>Olivier Alengila</li><li>Bobette Alengila</li><li>Rodric Mbele</li><li>Femme Rodric</li>
-<li>Alain Malega</li><li>Maria Malega</li><li>Jean Claude</li><li>Femme Jean Claude</li>
-</ul>
-<h3>Table 6</h3><ul>
-<li>Thacien</li><li>Zouber</li><li>Hafiz</li><li>Helmi</li><li>Armel</li><li>Jonathan</li><li>Rigobert</li>
-</ul>
-<h3>Table 7</h3><ul>
-<li>Mouche</li><li>Claudine</li><li>Carine</li><li>Janot</li><li>Regina</li><li>Frisianne</li><li>Fanny</li><li>Maman Dylan</li>
-</ul>
-<h3>Table 8</h3><ul>
-<li>Papa Lema</li><li>Maman Lema</li><li>Myriame Lema</li><li>Gloria kaba</li><li>Femme Gloria</li>
-<li>????????????????</li><li>????????????????</li><li>????????????????</li>
-</ul>
-<h3>Table 9</h3><ul>
-<li>José Bill Ngoy</li><li>Mama Sisi Ngoy</li><li>Papa Mao</li><li>Maman Myreille</li>
-<li>Tatiana</li><li>Marie Tatiana</li><li>Caty</li><li>Marie de Caty</li>
-</ul>
-<h3>Table 10</h3><ul>
-<li>Blanchard</li><li>Solange</li><li>Romario</li><li>Femme Romario</li>
-<li>Gracia</li><li>Marie de Gracia</li><li>Patricia</li><li>Dieudonne</li>
-</ul>
-<h3>Table 11</h3><ul>
-<li>Maman Thethe</li><li>Maman Lea</li><li>Maman Fernando</li><li>Judite</li>
-<li>Marie de Judite</li><li>Moseka</li><li>Marie Janne</li>
-</ul>
-<h3>Table 12</h3><ul>
-<li>Lydia</li><li>Nancy Tchao</li><li>Jolie</li>
-</ul>
-</div>
-</section></body>
+    <h1>Bienvenue au Mariage de Rosa et François</h1>
+    <img src="invitation.jpg" alt="Invitation Mariage" class="invitation">
+
+    <div class="search-container">
+        <input type="text" id="guestName" placeholder="Entrez votre nom en MAJUSCULE">
+        <button onclick="checkGuest()">VÉRIFIER</button>
+        <div class="result" id="resultMessage"></div>
+    </div>
+
+    <script>
+        const guests = {
+            "MOUCHE": "Table 7, Place A1",
+            "CLAUDINE": "Table 7, Place A2",
+            "CARINE": "Table 7, Place A3"
+        };
+
+        function checkGuest() {
+            const name = document.getElementById("guestName").value.trim().toUpperCase();
+            const message = document.getElementById("resultMessage");
+
+            if (guests[name]) {
+                message.innerHTML = "MERCI ET HONORÉ DE VOTRE PRÉSENCE<br>" + guests[name];
+                message.style.color = "green";
+            } else {
+                message.innerHTML = "DÉSOLÉ, VOUS N'ÊTES PAS PARMI LES INVITÉS";
+                message.style.color = "red";
+            }
+        }
+
+        // Add floating hearts
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('img');
+            heart.src = 'heart.png';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.animationDelay = (Math.random() * 10) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+</body>
 </html>
