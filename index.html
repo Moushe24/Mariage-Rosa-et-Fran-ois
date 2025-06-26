@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mariage de Rosa & François</title>
+  <meta charset="UTF-8">
+  <title>Invitation au Mariage</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #fff0f5;
+      background-color: #fff0f5;
       text-align: center;
       padding: 20px;
       overflow-x: hidden;
@@ -15,11 +15,6 @@
       color: #c2185b;
       font-size: 2em;
       margin-bottom: 10px;
-    }
-    img {
-      width: 60%;
-      max-width: 400px;
-      margin-bottom: 20px;
     }
     input {
       padding: 10px;
@@ -41,189 +36,82 @@
       margin-top: 20px;
       font-weight: bold;
     }
-    .heart {
+    .coeur {
       position: fixed;
       width: 20px;
       height: 20px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/32px-Love_Heart_SVG.svg.png');
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Heart_corazón.svg/1024px-Heart_corazón.svg.png') no-repeat center;
       background-size: contain;
-      animation: float 6s infinite;
+      animation: flotter 6s infinite;
       opacity: 0.6;
     }
-    @keyframes float {
+    @keyframes flotter {
       0% { transform: translateY(0); }
       100% { transform: translateY(-100vh); }
     }
   </style>
 </head>
 <body>
-
   <h1>Bienvenue au mariage de Rosa & François</h1>
-  <img src="m.jpg" alt="Invitation Mariage" />
-  <br />
-  <input type="text" id="nameInput" placeholder="Entrez votre nom ici" />
+  <img src="m.jpg" alt="Invitation Mariage">
+  <br><br>
+  <input type="text" id="nomInput" placeholder="Entrez votre nom...">
   <button onclick="checkGuest()">Vérifier</button>
   <p id="result"></p>
 
   <audio autoplay loop>
-    <source src="audio.mp3" type="audio/mp3" />
+    <source src="audio.mp3" type="audio/mp3">
   </audio>
 
   <script>
-    const guests = {
-      "Maman Thethe": { table: 1, place: "A1" },
-      "Maman Lea": { table: 1, place: "A2" },
-      "Maman Fernando": { table: 1, place: "A3" },
-      "Fernando Marie": { table: 1, place: "A4" },
-      "Judith": { table: 1, place: "A5" },
-      "Mari Judith": { table: 1, place: "A6" },
-      "Marie Jeanne": { table: 1, place: "A7" },
-      "Moseka": { table: 1, place: "A8" },
-
-      "Maman Lema": { table: 2, place: "A1" },
-      "Papa Lema": { table: 2, place: "A2" },
-      "xxxxxxx": { table: 2, place: "A3" },
-      "xxxxxxx": { table: 2, place: "A4" },
-      "Myriam Lema": { table: 2, place: "A5" },
-      "Maman Dylan": { table: 2, place: "A6" },
-      "Fanny": { table: 2, place: "A7" },
-      "xxxxxxxxx": { table: 2, place: "A8" },
-
-      "Papa Mao": { table: 3, place: "A1" },
-      "Maman Myreille": { table: 3, place: "A2" },
-      "Tatiana": { table: 3, place: "A3" },
-      "Marie Tatiana": { table: 3, place: "A4" },
-      "Caty": { table: 3, place: "A5" },
-      "Marie de Caty": { table: 3, place: "A6" },
-      "Blanchard": { table: 3, place: "A7" },
-      "Solange": { table: 3, place: "A8" },
-
-      "Romario": { table: 4, place: "A1" },
-      "Femme Romario": { table: 4, place: "A2" },
-      "Gracia": { table: 4, place: "A3" },
-      "Marie de Gracia": { table: 4, place: "A4" },
-      "Patricia": { table: 4, place: "A5" },
-      "Dieudonne": { table: 4, place: "A6" },
-      "Maman Thethe": { table: 4, place: "A7" },
-      "Maman Lea": { table: 4, place: "A8" },
-
-      "Maman Fernando": { table: 5, place: "A1" },
-      "Judite": { table: 5, place: "A2" },
-      "Marie de Judite": { table: 5, place: "A3" },
-      "Moseka": { table: 5, place: "A4" },
-      "Marie Janne": { table: 5, place: "A5" },
-      "Lydia": { table: 5, place: "A6" },
-      "Nancy": { table: 5, place: "A7" },
-      "Tchao": { table: 5, place: "A8" },
-
-      "Kems Dikima": { table: 6, place: "A1" },
-      "Chico Dikima": { table: 6, place: "A2" },
-      "Sheila Dikima": { table: 6, place: "A3" },
-      "Branny Dikima": { table: 6, place: "A4" },
-      "Bébé Dikima": { table: 6, place: "A5" },
-      "Christian Dikima": { table: 6, place: "A6" },
-      "Felly Dikima": { table: 6, place: "A7" },
-      "Christine Dikima": { table: 6, place: "A8" },
-
-      // ... Vous pouvez continuer à ajouter les 150 noms ici
-
-      "xxxxxxx": { table: 7, place: "A1" },
-      "xxxxxxx": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-       "Moushe": { table: 8, place: "A1" },
-      "Claudine": { table: 8, place: "A2" },
-      "Carine": { table: 8, place: "A3" },
-      "Regina": { table: 8, place: "A4" },
-      "Friziane": { table: 8, place: "A5" },
-      "Jps": { table: 8, place: "A6" },
-      "Gloria Kaba": { table: 8, place: "A7" },
-      "Ruth Kaba": { table: 8, place: "A8" }
-
-     "Jose Bill Ngoy": { table: 9, place: "A1" },
-      "Sisi Ngoy": { table:9, place: "A2" },
-      "Mao": { table: 9, place: "A3" },
-      "Mireille": { table: 9, place: "A4" },
-      "Tatiana": { table: 9, place: "A5" },
-      "Marie Tatiana": { table: 9, place: "A6" },
-      "Cathy": { table: 9, place: "A7" },
-      "Rock": { table: 9, place: "A8" }
-
-     "Maman Dylan": { table: 10, place: "A1" },
-      "INVITE 2": { table: 10, place: "A2" },
-      "INVITE 3": { table: 10, place: "A3" },
-      "INVITE 4": { table: 10, place: "A4" },
-      "INVITE 5": { table: 10, place: "A5" },
-      "INVITE 6": { table: 10, place: "A6" },
-      "INVITE 7": { table: 10, place: "A7" },
-      "INVITE 8": { table: 10, place: "A8" }
-
-     "Fanny": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-     "INVITE 1": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-     "INVITE 1": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-     "INVITE 1": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-     "INVITE 1": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
-
-     "INVITE 1": { table: 7, place: "A1" },
-      "INVITE 2": { table: 7, place: "A2" },
-      "INVITE 3": { table: 7, place: "A3" },
-      "INVITE 4": { table: 7, place: "A4" },
-      "INVITE 5": { table: 7, place: "A5" },
-      "INVITE 6": { table: 7, place: "A6" },
-      "INVITE 7": { table: 7, place: "A7" },
-      "INVITE 8": { table: 7, place: "A8" }
+    const invites = {
+      "moushe": { tableau: 1, lieu: "A1" },
+      "claudine": { tableau: 1, lieu: "A2" },
+      "carine janot": { tableau: 1, lieu: "A3" },
+      "regina": { tableau: 1, lieu: "A4" },
+      "frisianne": { tableau: 1, lieu: "A5" },
+      "fanny": { tableau: 1, lieu: "A6" },
+      "maman dylan": { tableau: 1, lieu: "A7" },
+      "papa lema": { tableau: 1, lieu: "A8" },
+      "maman lema": { tableau: 2, lieu: "A1" },
+      "myriame lema": { tableau: 2, lieu: "A2" },
+      "gloria kaba": { tableau: 2, lieu: "A3" },
+      "femme gloria": { tableau: 2, lieu: "A4" },
+      "josé": { tableau: 2, lieu: "A5" },
+      "bill": { tableau: 2, lieu: "A6" },
+      "ngoy": { tableau: 2, lieu: "A7" },
+      "maman sisi": { tableau: 2, lieu: "A8" },
+      "papa mao": { tableau: 3, lieu: "A1" },
+      "maman myreille": { tableau: 3, lieu: "A2" },
+      "tatiana": { tableau: 3, lieu: "A3" },
+      "marie tatiana": { tableau: 3, lieu: "A4" },
+      "caty": { tableau: 3, lieu: "A5" },
+      "marie de caty": { tableau: 3, lieu: "A6" },
+      "blanchard": { tableau: 3, lieu: "A7" },
+      "solange": { tableau: 3, lieu: "A8" },
+      // ... (inclus les autres noms ici comme ci-dessus)
+      // INVITÉS FICTIFS
+      "invite1": { tableau: 19, lieu: "A1" },
+      "invite2": { tableau: 19, lieu: "A2" },
+      "invite3": { tableau: 19, lieu: "A3" },
+      "invite4": { tableau: 19, lieu: "A4" },
+      "invite5": { tableau: 19, lieu: "A5" },
+      "invite6": { tableau: 19, lieu: "A6" },
+      "invite7": { tableau: 19, lieu: "A7" },
+      "invite8": { tableau: 19, lieu: "A8" },
+      "invite9": { tableau: 20, lieu: "A1" },
+      "invite10": { tableau: 20, lieu: "A2" }
+      // ... jusqu’à INVITE60 pour arriver à 150 au total
     };
 
     function checkGuest() {
-      const name = document.getElementById("nameInput").value.trim();
-      const guest = guests[name];
+      const nom = document.getElementById("nomInput").value.trim().toLowerCase();
+      const invite = invites[nom];
       const result = document.getElementById("result");
-      if (guest) {
-        result.textContent = `Merci ${name}, nous sommes honorés de votre présence. Table ${guest.table}, Place ${guest.place}.`;
+
+      if (invite) {
+        const nomAffiche = nom.split(" ").map(m => m.charAt(0).toUpperCase() + m.slice(1)).join(" ");
+        result.textContent = `Merci ${nomAffiche}, nous sommes honorés de votre présence. Table ${invite.tableau}, Place ${invite.lieu}.`;
         result.style.color = "green";
       } else {
         result.textContent = "DÉSOLÉ, VOUS N'ÊTES PAS SUR LA LISTE DES INVITÉS.";
@@ -231,14 +119,13 @@
       }
     }
 
-    // Générer quelques cœurs flottants
     for (let i = 0; i < 30; i++) {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.animationDuration = `${4 + Math.random() * 6}s`;
-      heart.style.opacity = Math.random();
-      document.body.appendChild(heart);
+      const coeur = document.createElement("div");
+      coeur.classList.add("coeur");
+      coeur.style.left = `${Math.random() * 100}vw`;
+      coeur.style.animationDuration = `${4 + Math.random() * 6}s`;
+      coeur.style.opacity = Math.random();
+      document.body.appendChild(coeur);
     }
   </script>
 </body>
